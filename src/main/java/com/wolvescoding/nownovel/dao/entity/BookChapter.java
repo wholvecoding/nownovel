@@ -30,7 +30,7 @@ private static final long serialVersionUID = 1L;
         /**
          * 章节号
          */
-        private Short chapterNum;
+        private Integer chapterNum;
 
         /**
          * 章节名
@@ -45,7 +45,7 @@ private static final long serialVersionUID = 1L;
         /**
          * 是否收费;1-收费 0-免费
          */
-        private Byte isVip;
+        private Integer isVip;
 
         private LocalDateTime createTime;
 
@@ -67,11 +67,11 @@ private static final long serialVersionUID = 1L;
             this.bookId = bookId;
             }
 
-    public Short getChapterNum() {
+    public Integer getChapterNum() {
             return chapterNum;
             }
 
-        public void setChapterNum(Short chapterNum) {
+        public void setChapterNum(Integer chapterNum) {
             this.chapterNum = chapterNum;
             }
 
@@ -91,11 +91,11 @@ private static final long serialVersionUID = 1L;
             this.wordCount = wordCount;
             }
 
-    public Byte getIsVip() {
+    public Integer getIsVip() {
             return isVip;
             }
 
-        public void setIsVip(Byte isVip) {
+        public void setIsVip(Integer isVip) {
             this.isVip = isVip;
             }
 

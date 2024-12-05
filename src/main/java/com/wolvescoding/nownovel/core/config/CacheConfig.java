@@ -3,9 +3,12 @@ package com.wolvescoding.nownovel.core.config;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.wolvescoding.nownovel.core.constant.CacheConsts;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -14,20 +17,27 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import java.time.Duration;
 import java.util.*;
 
+@Configuration
+@EnableCaching
 public class CacheConfig  {
     @Bean
+    @Primary
     public CacheManager caffeineCacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         List<CaffeineCache> caches = new ArrayList<>(CacheConsts.CacheEnum.values().length);
-        for(CacheConsts.CacheEnum c: CacheConsts.CacheEnum.values()){
-            if(c.isLocal()){
-                Caffeine<Object, Object> caffine = Caffeine.newBuilder().recordStats().maximumSize(c.getMaxSize());
-                if(c.getTtl() > 0){
-                     caffine.expireAfterWrite(Duration.ofSeconds(c.getTtl()));
+
+        for (var c : CacheConsts.CacheEnum.values()) {
+            if (c.isLocal()) {
+                Caffeine<Object, Object> caffeine = Caffeine.newBuilder().recordStats()
+                        .maximumSize(c.getMaxSize());
+                if (c.getTtl() > 0) {
+                    caffeine.expireAfterWrite(Duration.ofSeconds(c.getTtl()));
                 }
-                caches.add(new CaffeineCache(c.getName(), caffine.build()));
+                caches.add(new CaffeineCache(c.getName(), caffeine.build()));
             }
         }
+        caches.forEach(cache -> System.out.println("Registered cache: " + cache.getName()));
+
         cacheManager.setCaches(caches);
         return cacheManager;
     }

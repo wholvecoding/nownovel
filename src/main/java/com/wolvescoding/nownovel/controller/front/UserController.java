@@ -1,6 +1,8 @@
 package com.wolvescoding.nownovel.controller.front;
 
 import com.wolvescoding.nownovel.core.auth.UserHolder;
+import com.wolvescoding.nownovel.core.common.req.PageReqDto;
+import com.wolvescoding.nownovel.core.common.resp.PageRespDto;
 import com.wolvescoding.nownovel.core.common.resp.RestResp;
 import com.wolvescoding.nownovel.core.constant.ApiRouterConsts;
 import com.wolvescoding.nownovel.dto.req.UserCommentReqDto;
@@ -10,6 +12,7 @@ import com.wolvescoding.nownovel.dto.req.UserRegisterReqDto;
 import com.wolvescoding.nownovel.dto.resp.UserInfoRespDto;
 import com.wolvescoding.nownovel.dto.resp.UserLoginRespDto;
 import com.wolvescoding.nownovel.dto.resp.UserRegisterRespDto;
+import com.wolvescoding.nownovel.dto.resp.UsercommentRespDto;
 import com.wolvescoding.nownovel.service.BookService;
 import com.wolvescoding.nownovel.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,6 +43,7 @@ public class UserController {
      @GetMapping
      @Operation(summary ="用户信息查询接口")
      public RestResp<UserInfoRespDto> getUserInfo(){
+
          return userService.getUserInfo(UserHolder.getUserId());
      }
      @PutMapping
@@ -51,6 +55,11 @@ public class UserController {
     @Operation(summary ="用户反馈接口")
      public RestResp<Void> submitFeedback(@RequestBody String content){
          return userService.saveFeedback(UserHolder.getUserId(), content);
+     }
+     @Operation(summary ="删除反馈接口")
+     @DeleteMapping("/feedback/{id}")
+     public RestResp<Void> deleteFeedback(@PathVariable("id") Long id){
+         return userService.deleteFeedback(UserHolder.getUserId(), id);
      }
 
   @Operation(summary ="发表评论")
@@ -76,6 +85,19 @@ public class UserController {
         return bookService.deleteComment(UserHolder.getUserId(), id);
     }
 
+
+    @GetMapping("bookshelf_status")
+    @Operation(summary ="获取书架状态")
+    public RestResp<Integer> getBookshelfStatus(String bookId){
+        return userService.getBookshelfStatus(UserHolder.getUserId(), bookId);
+    }
+    @GetMapping("comments")
+    @Operation(summary ="获取评论列表")
+    public RestResp<PageRespDto<UsercommentRespDto>> listComments(PageReqDto pageReqDto){
+        System.out.println("ss"+UserHolder.getUserId());
+
+        return bookService.listComments(UserHolder.getUserId(),pageReqDto);
+    }
 
 
 }

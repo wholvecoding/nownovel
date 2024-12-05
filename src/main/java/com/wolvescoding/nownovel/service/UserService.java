@@ -17,4 +17,8 @@ public interface UserService {
     RestResp<Void> updataUserInfo(UserInfoUpReqDto dto);
 
     RestResp<Void> saveFeedback(Long userId, String content);
+
+    RestResp<Void> deleteFeedback(Long userId, Long id);
+
+    RestResp<Integer> getBookshelfStatus(Long userId, String bookId);
 }

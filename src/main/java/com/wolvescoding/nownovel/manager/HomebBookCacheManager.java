@@ -49,7 +49,7 @@ public class HomebBookCacheManager {
                     homeBookRespDto.setBookId(v.getBookId());
                     homeBookRespDto.setBookName(bookInfo.getBookName());
                     homeBookRespDto.setPicUrl(bookInfo.getPicUrl());
-                    homeBookRespDto.SetBookDesc(bookInfo.getBookDesc());
+                    homeBookRespDto.setBookDesc(bookInfo.getBookDesc());
                     return homeBookRespDto;
                 }).toList();
             }

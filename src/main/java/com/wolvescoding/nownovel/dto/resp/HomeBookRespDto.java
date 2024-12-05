@@ -1,15 +1,44 @@
 package com.wolvescoding.nownovel.dto.resp;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
 public class HomeBookRespDto {
-    public void setBookId(Long bookId) {
-    }
+    @Schema(description = "类型;0-轮播图 1-顶部栏 2-本周强推 3-热门推荐 4-精品推荐")
+    private Integer type;
 
-    public void setBookName(String bookName) {
-    }
+    /**
+     * 推荐小说ID
+     */
+    @Schema(description = "小说ID")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long bookId;
 
-    public void setPicUrl(String picUrl) {
-    }
+    /**
+     * 小说封面地址
+     */
+    @Schema(description = "小说封面地址")
+    private String picUrl;
 
-    public void SetBookDesc(String bookDesc) {
-    }
+    /**
+     * 小说名
+     */
+    @Schema(description = "小说名")
+    private String bookName;
+
+    /**
+     * 作家名
+     */
+    @Schema(description = "作家名")
+    private String authorName;
+
+    /**
+     * 书籍描述
+     */
+    @Schema(description = "书籍描述")
+    private String bookDesc;
+
 }

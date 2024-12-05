@@ -1,5 +1,7 @@
 package com.wolvescoding.nownovel.dto.resp;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,6 +23,7 @@ public class BookCommentRespDto {
     public static class CommentInfo {
 
         //@Schema(description = "评论ID")
+        @JsonSerialize(using = ToStringSerializer.class)
         private Long id;
 
         //@Schema(description = "评论内容")
@@ -31,6 +34,7 @@ public class BookCommentRespDto {
         private String commentUser;
 
         //@Schema(description = "评论用户ID")
+        @JsonSerialize(using = ToStringSerializer.class)
         private Long commentUserId;
 
         //@Schema(description = "评论用户头像")

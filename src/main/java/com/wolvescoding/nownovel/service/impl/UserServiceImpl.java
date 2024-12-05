@@ -1,14 +1,18 @@
 package com.wolvescoding.nownovel.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.wolvescoding.nownovel.core.common.constant.CommonConsts;
 import com.wolvescoding.nownovel.core.common.constant.ErrorCodeEnum;
 import com.wolvescoding.nownovel.core.common.exception.BusinessException;
 import com.wolvescoding.nownovel.core.common.resp.RestResp;
 import com.wolvescoding.nownovel.core.constant.DatabaseConsts;
 import com.wolvescoding.nownovel.core.constant.SystemConfigConsts;
 import com.wolvescoding.nownovel.core.util.JwtUtils;
+import com.wolvescoding.nownovel.dao.entity.UserBookshelf;
 import com.wolvescoding.nownovel.dao.entity.UserFeedback;
 import com.wolvescoding.nownovel.dao.entity.UserInfo;
+import com.wolvescoding.nownovel.dao.mapper.UserBookshelfMapper;
+import com.wolvescoding.nownovel.dao.mapper.UserFeedbackMapper;
 import com.wolvescoding.nownovel.dao.mapper.UserInfoMapper;
 import com.wolvescoding.nownovel.dto.req.UserInfoUpReqDto;
 import com.wolvescoding.nownovel.dto.req.UserLoginReqDto;
@@ -32,6 +36,8 @@ public class UserServiceImpl implements UserService {
     private final VerifyCodeManager verifyCodeManager;
     private final UserInfoMapper userInfoMapper;
     private final JwtUtils jwtUtils;
+    private final UserFeedbackMapper userFeedbackMapper;
+    private final UserBookshelfMapper userBookshelfMapper;
     @Override
     public RestResp<UserRegisterRespDto> register(UserRegisterReqDto dto) {
         // 验证码校验
@@ -80,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RestResp<UserInfoRespDto> getUserInfo(Long userId) {
-        UserInfo userInfo = userInfoMapper.selectById(userId);
+            UserInfo userInfo = userInfoMapper.selectById(userId);
         return RestResp.ok(UserInfoRespDto.builder()
                 .nickName(userInfo.getNickName())
                 .userSex(userInfo.getUserSex())
@@ -107,6 +113,27 @@ public class UserServiceImpl implements UserService {
         userFeedback.setCreateTime(LocalDateTime.now());
         userFeedbackMapper.insert(userFeedback);
         return RestResp.ok();
+    }
+
+    @Override
+    public RestResp<Void> deleteFeedback(Long userId, Long id) {
+        QueryWrapper<UserFeedback> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(DatabaseConsts.CommonColumnEnum.ID.getName(), id)
+                .eq(DatabaseConsts.UserFeedBackTable.COLUMN_USER_ID, userId);
+        userFeedbackMapper.delete(queryWrapper);
+        return RestResp.ok();
+    }
+
+    @Override
+    public RestResp<Integer> getBookshelfStatus(Long userId, String bookId) {
+        QueryWrapper<UserBookshelf> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(DatabaseConsts.UserBookshelfTable.COLUMN_USER_ID, userId)
+                .eq(DatabaseConsts.UserBookshelfTable.COLUMN_BOOK_ID, bookId);
+        return RestResp.ok(
+                userBookshelfMapper.selectCount(queryWrapper) > 0
+                        ? CommonConsts.YES
+                        : CommonConsts.NO
+        );
     }
 
 

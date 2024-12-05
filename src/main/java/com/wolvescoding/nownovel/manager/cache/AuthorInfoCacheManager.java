@@ -4,9 +4,11 @@ import com.wolvescoding.nownovel.dao.entity.AuthorInfo;
 import com.wolvescoding.nownovel.dao.mapper.AuthorInfoMapper;
 import com.wolvescoding.nownovel.dto.AuthorInfoDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+@Component
 @RequiredArgsConstructor
 public class AuthorInfoCacheManager {
     private final AuthorInfoMapper AuthorInfoMapper;

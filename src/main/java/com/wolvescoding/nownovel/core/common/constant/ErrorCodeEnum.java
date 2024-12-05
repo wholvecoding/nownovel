@@ -36,7 +36,9 @@ public enum ErrorCodeEnum {
     SYSTEM_ERROR("S0001","系统执行出错"),
     SYSTEM_TIMEOUT_ERROR("S0100","系统执行超时"),
    THIRD_SERVER_ERROR("T0001","调用第三方服务出错"),
-    MIDDLE_SERVER_ERROR("T0100","中间件服务出错");
+    MIDDLE_SERVER_ERROR("T0100","中间件服务出错"),
+    AUTHOR_BOOK_NAME_EXIST("UA001","该作者书籍不存在" ),
+    USER_UN_AUTH("UA002","你不具备作者的权限" );
     private String code;
     private String msg;
 

@@ -28,7 +28,7 @@ private static final long serialVersionUID = 1L;
         /**
          * 作品方向;0-男频 1-女频
          */
-        private Byte workDirection;
+        private Integer workDirection;
 
         /**
          * 类别ID
@@ -68,12 +68,12 @@ private static final long serialVersionUID = 1L;
         /**
          * 评分;总分:10 ，真实评分 = score/10
          */
-        private Byte score;
+        private int score;
 
         /**
          * 书籍状态;0-连载中 1-已完结
          */
-        private Byte bookStatus;
+        private Integer bookStatus;
 
         /**
          * 点击量
@@ -108,7 +108,7 @@ private static final long serialVersionUID = 1L;
         /**
          * 是否收费;1-收费 0-免费
          */
-        private Byte isVip;
+        private Integer isVip;
 
         /**
          * 创建时间
@@ -128,11 +128,11 @@ private static final long serialVersionUID = 1L;
             this.id = id;
             }
 
-    public Byte getWorkDirection() {
+    public Integer getWorkDirection() {
             return workDirection;
             }
 
-        public void setWorkDirection(Byte workDirection) {
+        public void setWorkDirection(Integer workDirection) {
             this.workDirection = workDirection;
             }
 
@@ -192,19 +192,19 @@ private static final long serialVersionUID = 1L;
             this.bookDesc = bookDesc;
             }
 
-    public Byte getScore() {
+    public int getScore() {
             return score;
             }
 
-        public void setScore(Byte score) {
+        public void setScore(int score) {
             this.score = score;
             }
 
-    public Byte getBookStatus() {
+    public Integer getBookStatus() {
             return bookStatus;
             }
 
-        public void setBookStatus(Byte bookStatus) {
+        public void setBookStatus(Integer bookStatus) {
             this.bookStatus = bookStatus;
             }
 
@@ -256,11 +256,11 @@ private static final long serialVersionUID = 1L;
             this.lastChapterUpdateTime = lastChapterUpdateTime;
             }
 
-    public Byte getIsVip() {
+    public Integer getIsVip() {
             return isVip;
             }
 
-        public void setIsVip(Byte isVip) {
+        public void setIsVip(Integer isVip) {
             this.isVip = isVip;
             }
 
